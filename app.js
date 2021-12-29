@@ -2,8 +2,8 @@ const canvas = document.querySelector("#jsCanvas");
 const ctx = canvas.getContext("2d");
 // context는 canvas 안에서 픽셀을 다루는 거!
 
-                 
-const colors = document.querySelectorAll("jsColor");
+                        //all  해야 모든 jsColor가져올 수 있따!
+const colors = document.querySelectorAll(".jsColor");
 
 ctx.strokeStyle = "#2c2c2c"; //line 색!!
 ctx.lineWitdh = 2.5;
@@ -41,8 +41,11 @@ function onMouseMove(event) {
     }
 }
 
-function onMouseDown(event) {
-    painting = true;
+
+function handleColorClick(event) {
+    // console.log(event.target.style);
+    const color = event.target.style.backgroundColor;
+    ctx.strokeStyle = color; //this is override!!
 }
 
 
@@ -52,3 +55,4 @@ if(canvas) {
     canvas.addEventListener("mouseup", stopPainting);
     canvas.addEventListener("mouseleave", stopPainting); 
 }
+colors.forEach(color => color.addEventListener("click", handleColorClick));
