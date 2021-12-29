@@ -7,6 +7,8 @@ const colors = document.querySelectorAll(".jsColor");
 
 const range = document.querySelector("#jsRange");
 
+const modeBtn = document.querySelector("#jsMode");
+
 
 
 ctx.strokeStyle = "#2c2c2c"; //line 색!!
@@ -18,6 +20,8 @@ canvas.height =  700;
 
 
 let painting = false;
+
+let filling = false;
 
 function stopPainting(){
     painting = false;
@@ -58,6 +62,18 @@ function handleRangeChange(event) {
     ctx.lineWidth  = size;
 }
 
+function handleModeClick() {
+    if(filling === true) {
+        filling = false;
+        modeBtn.innerText = "fill";
+    } else {
+        filling = true; 
+        modeBtn.innerText = "Paint";
+    }
+
+
+}
+
 if(canvas) {
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mousedown", startPainting);
@@ -71,4 +87,8 @@ colors.forEach(color => color.addEventListener("click", handleColorClick));
 if(range) {
     range.addEventListener("input", handleRangeChange);
 
+}
+
+if(modeBtn) {
+    modeBtn.addEventListener("click", handleModeClick);
 }
