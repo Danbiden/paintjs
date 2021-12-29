@@ -2,11 +2,15 @@ const canvas = document.querySelector("#jsCanvas");
 const ctx = canvas.getContext("2d");
 // context는 canvas 안에서 픽셀을 다루는 거!
 
-                        //all  해야 모든 jsColor가져올 수 있따!
+                        //all  해야 모든 jsColor가져올 수 있다!
 const colors = document.querySelectorAll(".jsColor");
 
+const range = document.querySelector("#jsRange");
+
+
+
 ctx.strokeStyle = "#2c2c2c"; //line 색!!
-ctx.lineWitdh = 2.5;
+ctx.lineWidth = 2.5;
 
 //  픽셀을 다루는 window 크기도 꼭 줘야함>> width height  줘야한다!
 canvas.width = 700;
@@ -49,6 +53,11 @@ function handleColorClick(event) {
 }
 
 
+function handleRangeChange(event) {
+    const size = event.target.value;
+    ctx.lineWidth  = size;
+}
+
 if(canvas) {
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mousedown", startPainting);
@@ -56,3 +65,10 @@ if(canvas) {
     canvas.addEventListener("mouseleave", stopPainting); 
 }
 colors.forEach(color => color.addEventListener("click", handleColorClick));
+
+
+
+if(range) {
+    range.addEventListener("input", handleRangeChange);
+
+}
