@@ -9,15 +9,17 @@ const range = document.querySelector("#jsRange");
 
 const modeBtn = document.querySelector("#jsMode");
 
+const INITIAL_COLOR = "#2c2c2c";
 
-
-ctx.strokeStyle = "#2c2c2c"; //line 색!!
-ctx.lineWidth = 2.5;
+const CANVAS_SIZE = 700;
 
 //  픽셀을 다루는 window 크기도 꼭 줘야함>> width height  줘야한다!
-canvas.width = 700;
-canvas.height =  700;
+canvas.width = CANVAS_SIZE;
+canvas.height =  CANVAS_SIZE;
 
+ctx.strokeStyle =  INITIAL_COLOR;  //line 색!!
+ctx.fillStyle = INITIAL_COLOR; 
+ctx.lineWidth = 2.5;
 
 let painting = false;
 
@@ -54,6 +56,7 @@ function handleColorClick(event) {
     // console.log(event.target.style);
     const color = event.target.style.backgroundColor;
     ctx.strokeStyle = color; //this is override!!
+    ctx.fillStyle = color;
 }
 
 
@@ -70,15 +73,22 @@ function handleModeClick() {
         filling = true; 
         modeBtn.innerText = "Paint";
     }
-
-
 }
+
+function handleCanvasClick() {
+// ctx.fillRect(x, y, width, height);
+    if(filling) {
+        ctx.fillRect(0,0, CANVAS_SIZE, CANVAS_SIZE);
+    }
+}
+
 
 if(canvas) {
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mousedown", startPainting);
     canvas.addEventListener("mouseup", stopPainting);
     canvas.addEventListener("mouseleave", stopPainting); 
+    canvas.addEventListener("click", handleCanvasClick);
 }
 colors.forEach(color => color.addEventListener("click", handleColorClick));
 
